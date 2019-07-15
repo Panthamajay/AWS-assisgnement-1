@@ -1,0 +1,7 @@
+created RDS db instance
+
+created ec2 instnace
+
+installed mysql
+
+tried to connect both db and ec2 instance

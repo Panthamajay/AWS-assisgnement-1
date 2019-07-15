@@ -1,0 +1,55 @@
+steps:
+
+1.created an EC2 in a VPC in region (ohio)
+
+2.created an EFS in the same VPC that is used for creating Amazon EC2 instance
+
+3. mount targets are created in all the available regions so that we can mount file system on Amazon EC2 instances created in any of the Amazon VPC subnets.
+
+4.noted the File system ID value.
+
+5.noted down the file system's DNS name.
+
+6.launched the ec2 intance using mobaxterm.
+
+7.On  EC2 instance, installed the Apache web server and configured it using
+
+      $ sudo yum -y install httpd (Apache HTTPD is an HTTP server daemon )
+
+8.Started the service using $ sudo service httpd start  
+
+9.created the subdirectory under DOCUMENT ROOT $ sudo mkdir /var/www/html/efs
+
+10.Mounted the Amazon EFS file system with mount command using the EFS mount helper utility by providing your file system ID.
+
+     $ sudo mount -t efs fs-1d1b4d64:/ /var/www/html/efs  
+
+11.Added a rule in the EC2 instance security group to allow HTTP traffic on TCP port 80 from anywhere 
+
+12.changed directory to /var/www/html/efs
+
+13.created a subdirectory sudo mkdir subdirectory
+
+14.changed the ownership to ec2-user  sudo chown  ec2-user subdirectory
+
+15.changed the directory to subdirectory
+
+16.created a index.html file  echo "<html><h1>Hey , this is from Amazon EFS</h1></html>" > index.html
+
+17.accessed the file by entering the public DNS name of ec2 instance followed by filename in web browser
+
+        http://ec2-18-191-189-226.us-east-2.compute.amazonaws.com/efs/subdirectory/index.html
+
+18.created a snapshot of the ec2 instance 
+
+19.selectedthe snapshot and deployed it in another region (n.virginia)
+
+
+
+
+
+
+  
+
+
+

@@ -1,0 +1,38 @@
+{
+  "Id": "Policy1563001350395",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Stmt1563000152492",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Effect": "Allow",                             # Allowing to retrieve any object from mybucket
+      "Resource": "arn:aws:s3:::ques3mybucket/*",    #ARN of s3 mybucket 
+      "Principal": "*"                               #* represents allowing every user to access the resource
+    },
+    {
+      "Sid": "Stmt1563000206224",
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Effect": "Deny",                                           #Denying to get objects from MySecretFolder
+      "Resource": "arn:aws:s3:::ques3mybucket/MySecretFolder/*",  #ARN of MySecretFolder
+      "Principal": "*"                                            #* represents allowing every user to access the resource
+    },
+    {
+      "Sid": "Stmt1563001282283",
+      "Action": [
+        "s3:DeleteObject",
+        "s3:PutObject"                                             #Granting the object delete and put permissions
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:s3:::ques3mybucket/*", 
+      "Principal": {
+        "AWS": [                                     
+          "arn:aws:iam::488599217855:root"                        #ARN of root user
+        ]
+      }
+    }
+  ]
+}

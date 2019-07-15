@@ -1,0 +1,58 @@
+
+STRATEGY:
+
+1.Use the AWS  organization console to group the 10 freelancers together
+ 
+   and create an organization by consolidating their AWS account together
+
+2. utilize the  AWS organization of IAM principals (users and roles).
+
+3.Assign the Identity-based policies to the ten group of people by Enabling all features in your organization
+
+4.By default, it attaches an AWS managed policy called FullAWSAccess to all roots, OUs, and accounts.
+
+   They can access any service or operation.
+ 
+5. restrict permissions,Blacklist all these 10 freelancers and 
+ 
+   add the policy that they are restricted to use the AWS account when they are not connected to organization netwrok.
+
+6.use the advanced account management features available in AWS Organizations such as service control policies (SCPs). 
+   
+   and use blacklisting techniques  to filter the permissions that are available to accounts. 
+
+7.Users and roles in the affected accounts can then exercise only that level of access,
+ 
+   even if their IAM policies allow all actions
+
+Example IAM policy:
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "Allowaccess",
+            "Effect": "Allow",
+            "Principal": {
+				"AWS":[
+						"arn:aws:iam::094697565664:user/Casey",
+                        "arn:aws:iam::094697565664:user/David",
+                        "arn:aws:iam::094697565664:user/Tom",
+                        "arn:aws:iam::094697565664:user/Michael",
+                        "arn:aws:iam::094697565664:user/Brenda",
+                        "arn:aws:iam::094697565664:user/Lisa",
+                        "arn:aws:iam::094697565664:user/Norman",
+                        "arn:aws:iam::094697565646:user/Steve",
+                        "arn:aws:iam::087695765465:user/Douglas",
+                        "arn:aws:iam::087695765465:user/Michelle"
+]
+},
+            "Action": "access",
+            "Resource": "individual AWS account/*",
+            "Condition": { when the members are connected to organization network only
+                         }
+        }
+    ]
+}
+
+
